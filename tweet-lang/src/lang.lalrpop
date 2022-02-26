@@ -1,0 +1,44 @@
+use std::str::FromStr;
+use crate::ast::{Direction,Action,Instruction};
+
+grammar;
+
+Sentence<T>: Vec<T> = { // (1)
+    <mut v:(<T> ".")*> <e:T?> => match e { // (2)
+        None => v,
+        Some(e) => {
+            v.push(e);
+            v
+        }
+    }
+};
+List<T>: Vec<T> = { // (1)
+    <mut v:(<T> ",")*> <e:T?> => match e { // (2)
+        None => v,
+        Some(e) => {
+            v.push(e);
+            v
+        }
+    }
+};
+
+pub Instructions:Instruction = <Sentence<Instruction>> => Instruction::List(<>);
+
+pub Instruction:Instruction = {
+    <Action> => Instruction::Action(<>),
+    "Do "<instruction:Instruction><num:Num>" times" => Instruction::Repetition(Box::new(instruction),num),
+}
+
+
+pub Direction: Direction = {
+    "left" => Direction::Left,
+    "right" => Direction::Right,
+};
+
+pub Action: Action = {
+    "jump "<Direction>=> Action::Jump(<>),
+    "walk "<Direction>=> Action::Walk(<>),
+    "punch "<Direction>=> Action::Punch(<>),
+};
+
+pub Num: usize = <s:r"[0-9]+"> => usize::from_str(s).unwrap();

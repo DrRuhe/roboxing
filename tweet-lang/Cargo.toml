@@ -1,8 +1,18 @@
 [package]
-name = "twitter-lang"
+name = "tweet-lang"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+regex = "1"
+
+[dependencies.lalrpop-util]
+version = "0.19.7"
+
+
+
+[build-dependencies.lalrpop]
+version = "0.19.7"
+features = ["lexer"]
