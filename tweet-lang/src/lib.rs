@@ -7,7 +7,6 @@ lalrpop_mod!(pub lang);
 
 
 
-use crate::ast::Action;
 
 #[allow(unused_must_use)]
 #[test]
@@ -20,7 +19,7 @@ fn lang() {
 
 
 
-
+    use crate::ast::Action;
     let instructions = lang::InstructionsParser::new().parse("punch left. walk right. Do jump left 3 times.").unwrap();
     let actions:Vec<Action> = instructions.into();
     dbg!(actions);

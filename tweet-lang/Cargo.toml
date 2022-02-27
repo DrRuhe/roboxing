@@ -10,9 +10,9 @@ regex = "1"
 
 [dependencies.lalrpop-util]
 version = "0.19.7"
+features = ["lexer"]
 
 
 
 [build-dependencies.lalrpop]
 version = "0.19.7"
-features = ["lexer"]
