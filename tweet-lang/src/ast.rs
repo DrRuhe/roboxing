@@ -25,7 +25,7 @@ impl Iterator for Repeat {
     fn next(&mut self) -> Option<Self::Item> {
         if self.count != 0 {
             self.count -= 1;
-            return Some(self.action.clone());
+            return Some(self.action);
         }
         None
     }
